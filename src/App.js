@@ -1,67 +1,60 @@
-import './App.css';
-import React, {Component} from 'react';
+import "./App.css";
+import React, { Component } from "react";
+import DataTable from "./DataTable.js";
 
-
-{/* <App qwe={ 123}></App> */}
-
-class App extends Component{
-  
-  constructor(props)
-  {
-    super(props)
-
-    this.state = { tableRows: [] };
-
-    this.fetchData = this.fetchData.bind(this);
-  }
-
+class App extends Component {
   componentDidMount() {
     this.fetchData();
   }
 
-  async fetchData()
-  {
-    var reqUrl = "https://swapi.dev/api/planets/"
+  constructor(props) {
+    super(props);
 
-    while (true)
-    {
+    this.state = { tableRows: [], nameFilter: "" };
+
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  async fetchData() {
+    var reqUrl = "https://swapi.dev/api/planets/";
+
+    while (true) {
       const res = await fetch(reqUrl);
-      const resJson = await res.json()
-
-      this.setState({tableRows: [...this.state.tableRows, ...resJson.results]})
+      const resJson = await res.json();
+      this.setState({
+        tableRows: [...this.state.tableRows, ...resJson.results],
+      });
 
       if (!resJson.next) break;
       reqUrl = resJson.next;
-
-      console.log(resJson)
     }
   }
 
-
   render() {
     return (
-    <header className="index-header">
-      <div className="star-wars-header">
-        <div className="header-name">
-          <h1>Star wars Planets</h1>
-          <div>Counter: { this.state.test}</div>
+      <div className="all-body">
+        <div className="star-wars-header">
+          <div className="header-name">
+            <h1>Star wars Planets</h1>
+          </div>
+          <div className="header-search">
+            <input
+              type="text"
+              placeholder="Planet name"
+              name="search-planet"
+              onChange={(e) => this.setState({ nameFilter: e.target.value })}
+              // onChange={(e) => console.log("Input chnage: ", e.target.value)}
+            />
+          </div>
         </div>
-        {
-            this.state.tableRows.map((dataRow, i) => <div key={i}>{dataRow.name}</div>)
-        }
-        <div className="header-search">
-          <input type = "text" placeholder="Planet name" name="search-planet" onChange={(e) => console.log(e)}/>
-        </div>     
+        <DataTable
+          tableRows={this.state.tableRows}
+          nameFilter={this.state.nameFilter}
+          onSort={this.state.sortField}
+        />
       </div>
-    </header>
-      );
-    }
+    );
+  }
 }
-
-
-
- 
-
-
 
 export default App;
