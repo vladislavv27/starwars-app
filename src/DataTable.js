@@ -6,7 +6,6 @@ class DataTable extends React.Component {
     super(props);
 
     this.state = { sortFunc: undefined };
-
     this.sortDir = true;
     this.sortField = "";
   }
@@ -30,61 +29,49 @@ class DataTable extends React.Component {
           <tr>
             <th
               onClick={() => {
-                
-                if (this.sortField === "name")
-                  this.sortDir = !this.sortDir;
-                else
-                  this.sortDir = true;
-
-                this.sortField = "name"
-
+                if (this.sortField === "name") this.sortDir = !this.sortDir;
+                else this.sortDir = true;
+                this.sortField = "name";
                 this.setState({
                   sortField: "name",
-                  sortFunc: (dispRow1, dispRow2) => 
-                     dispRow1.name.localeCompare(dispRow2.name) * (this.sortDir ? 1 : -1)
-                })
+                  sortFunc: (dispRow1, dispRow2) =>
+                    dispRow1.name.localeCompare(dispRow2.name) *
+                    (this.sortDir ? 1 : -1),
+                });
               }}
             >
               name
-            </th>        
-      
+            </th>
+
             <th>rotation period</th>
             <th>orbital period</th>
             <th
               onClick={() => {
-                
-                if (this.sortField === "diameter")
-                  this.sortDir = !this.sortDir;
-                else
-                  this.sortDir = true;
-
-                this.sortField = "diameter"
-
+                if (this.sortField === "diameter") this.sortDir = !this.sortDir;
+                else this.sortDir = true;
+                this.sortField = "diameter";
                 this.setState({
-                  sortFunc: (dispRow1, dispRow2) => 
-                      (dispRow1.diameter - dispRow2.diameter) * (this.sortDir ? 1 : -1)
-                })
+                  sortFunc: (dispRow1, dispRow2) =>
+                    (dispRow1.diameter - dispRow2.diameter) *
+                    (this.sortDir ? 1 : -1),
+                });
               }}
             >
               diameter
             </th>
             <th>climate</th>
             <th
-           onClick={() => {
-                
-            if (this.sortField === "gravity")
-              this.sortDir = !this.sortDir;
-            else
-              this.sortDir = true;
-
-            this.sortField = "gravity"
-
-            this.setState({
-              sortField: "gravity",
-              sortFunc: (dispRow1, dispRow2) => 
-                 dispRow1.gravity.localeCompare(dispRow2.gravity) * (this.sortDir ? 1 : -1)
-            })
-          }}
+              onClick={() => {
+                if (this.sortField === "gravity") this.sortDir = !this.sortDir;
+                else this.sortDir = true;
+                this.sortField = "gravity";
+                this.setState({
+                  sortField: "gravity",
+                  sortFunc: (dispRow1, dispRow2) =>
+                    dispRow1.gravity.localeCompare(dispRow2.gravity) *
+                    (this.sortDir ? 1 : -1),
+                });
+              }}
             >
               gravity
             </th>

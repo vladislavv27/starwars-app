@@ -43,7 +43,6 @@ class App extends Component {
               placeholder="Planet name"
               name="search-planet"
               onChange={(e) => this.setState({ nameFilter: e.target.value })}
-              // onChange={(e) => console.log("Input chnage: ", e.target.value)}
             />
           </div>
         </div>
